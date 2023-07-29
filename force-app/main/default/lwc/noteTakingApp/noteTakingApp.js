@@ -25,6 +25,10 @@ export default class NoteTakingApp extends LightningElement {
         'color'
     ];
 
+    get isFormInvalid() {
+        return !(this.noteRecord && this.noteRecord.Note_Description__c && this.noteRecord.Name)
+    }
+
     createNoteHandler() {
         this.showModal = true
     }

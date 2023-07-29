@@ -47,7 +47,7 @@
         </form>
         <footer slot="footer">
             <button class="slds-button slds-button_neutral" onclick={closeModalHandler}>Cancel</button>
-            <button class="slds-button slds-button_brand" onclick={formSubmitHandler}>Save</button>
+            <button class="slds-button slds-button_brand" onclick={formSubmitHandler} disabled={isFormInvalid}>Save</button>
         </footer>
     </c-modal>
     </template>
