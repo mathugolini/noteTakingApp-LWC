@@ -2,8 +2,8 @@
     <template if:true={showNotification}>
 
     <div class="slds-notify_container slds-is-relative">
-        <div class="slds-notify slds-notify_toast slds-theme_info" role="status">
-            <h2>Hurray!!</h2>
+        <div class={notifyClasses} role="status">
+            <h2 class="slds-text-heading_small">{message}</h2>
         </div>
     </div>
     </template>
