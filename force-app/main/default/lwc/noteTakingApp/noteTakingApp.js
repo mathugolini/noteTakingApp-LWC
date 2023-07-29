@@ -41,14 +41,17 @@ export default class NoteTakingApp extends LightningElement {
 
     changeHandler(event) {
         const {name, value} = event.target
-
         this.noteRecord={...this.noteRecord, [name]:value}
     }
 
     formSubmitHandler(event) {
         event.preventDefault();
         console.log("this.noteRecord", JSON.stringify(this.noteRecord))
-        this.createNote()
+        const elem = this.template.querySelector('c-notification')
+        if (elem) {
+            elem.showToast()
+        }
+        //this.createNote()
     }
 
     createNote() {
