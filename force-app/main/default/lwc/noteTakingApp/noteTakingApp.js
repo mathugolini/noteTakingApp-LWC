@@ -31,11 +31,17 @@ export default class NoteTakingApp extends LightningElement {
     
     closeModalHandler() {
         this.showModal = false
+        this.noteRecord = DEFAULT_NOTE_FORM
     }
 
     changeHandler(event) {
         const {name, value} = event.target
 
-        this.noteRecord={...this.noteRecord, ["Name"]:value}
+        this.noteRecord={...this.noteRecord, [name]:value}
+    }
+
+    formSubmitHandler(event) {
+        event.preventDefault();
+        console.log("this.noteRecord", JSON.stringify(this.noteRecord))
     }
 }
