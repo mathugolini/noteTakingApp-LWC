@@ -13,4 +13,9 @@ public with sharing class NoteTakingController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    @AuraEnabled(cacheable = true)
+    public static List<My_Note__c> getNotes() {
+        return [SELECT Id, Name, Note_Description__c, LastModifiedDate from My_Note__c order by LastModifiedDate desc];
+    }
 }
