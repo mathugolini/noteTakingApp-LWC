@@ -147,6 +147,8 @@ get ModalName(){
   })
   if (result) {
     this.deleteHandler()
+  } else {
+    this.selectedRecordId = null
   }
  }
 
