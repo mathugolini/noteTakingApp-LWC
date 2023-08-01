@@ -9,6 +9,7 @@ export default class NoteTakingApp extends LightningElement {
   showModal = false
   noteRecord = DEFAULT_NOTE_FORM
   noteList = []
+  selectedRecordId
   formats = [
     'font',
     'size',
@@ -28,6 +29,10 @@ export default class NoteTakingApp extends LightningElement {
 
 get isFormInvalid(){
   return !(this.noteRecord && this.noteRecord.Note_Description__c && this.noteRecord.Name)
+}
+
+get ModalName() {
+  return this.selectedRecordId ? "Update Note":"Add Note"
 }
 
   @wire(getNotes)
@@ -51,6 +56,7 @@ get isFormInvalid(){
   closeModalHandler(){
     this.showModal = false
     this.noteRecord = DEFAULT_NOTE_FORM
+    this.selectedRecordId = null
   }
 
   changeHandler(event){
@@ -80,5 +86,16 @@ get isFormInvalid(){
     if(elem){
       elem.showToast(message, variant)
     }
+  }
+
+  editNoteHandler(event) {
+    const {recordid} = event.target.dataset
+    const noteRecord = this.noteList.find(item=>item.Id === recordid)
+    this.noteRecord = {
+      Name: noteRecord.name,
+      Note_Description__c:noteRecord.Note_Description__c
+    }
+    this.selectedRecordId = recordid
+    this.showModal = true
   }
 }
