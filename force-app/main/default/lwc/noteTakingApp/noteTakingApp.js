@@ -8,6 +8,7 @@ const DEFAULT_NOTE_FORM = {
 export default class NoteTakingApp extends LightningElement {
   showModal = false
   noteRecord = DEFAULT_NOTE_FORM
+  noteList = []
   formats = [
     'font',
     'size',
@@ -33,6 +34,10 @@ get isFormInvalid(){
   noteListInfo({data, error}) {
     if (data) {
       console.log("data of notes", JSON.stringify(data))
+      this.noteList = data.map(item=>{
+        let formartedDate = new Date(item.LastModifiedDate).toDateString()
+        return {...item, formartedDate}
+      })
     } 
     if (error) {
       console.error("error in fetching", error)
