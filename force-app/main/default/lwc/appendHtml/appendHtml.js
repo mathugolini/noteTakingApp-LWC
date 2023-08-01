@@ -5,24 +5,26 @@ export default class AppendHtml extends LightningElement {
     loaded
 
     @api
-    get result() {
+    get result(){
         return this._result
     }
-
-    set result(data) {
+    set result(data){
         this._result = data
-    } 
-
-    renderedCallback() {
-        if (this._result && !this.loaded) {
+        if(this.loaded){
             this.attachHtml()
         }
     }
 
-    attachHtml() {
+    renderedCallback(){
+        if(this._result && !this.loaded){
+            this.attachHtml()
+        }
+    }
+
+    attachHtml(){
         const container = this.template.querySelector('.htmlcontainer')
-        if (container) {
-            container.innerHTML = this.result
+        if(container){
+            container.innerHTML= this.result
             this.loaded = true
         }
     }

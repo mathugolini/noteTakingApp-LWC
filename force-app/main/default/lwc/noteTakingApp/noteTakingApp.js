@@ -2,6 +2,7 @@ import { LightningElement, wire } from 'lwc';
 import createNoteRecord from '@salesforce/apex/NoteTakingController.createNoteRecord'
 import getNotes from '@salesforce/apex/NoteTakingController.getNotes'
 import updateNoteRecord from '@salesforce/apex/NoteTakingController.updateNoteRecord'
+import {refreshApex} from '@salesforce/apex'
 const DEFAULT_NOTE_FORM = {
   Name:"",
   Note_Description__c:""
@@ -11,6 +12,7 @@ export default class NoteTakingApp extends LightningElement {
   noteRecord = DEFAULT_NOTE_FORM
   noteList =[]
   selectedRecordId
+  wiredNoteResult
   formats = [
     'font',
     'size',
@@ -38,7 +40,9 @@ get ModalName(){
 
 
  @wire(getNotes)
-  noteListInfo({data, error}){
+  noteListInfo(result){
+    this.wiredNoteResult = result 
+    const {data, error} = result
     if(data){
       console.log("data of notes", JSON.stringify(data))
       this.noteList = data.map(item=>{
@@ -85,7 +89,9 @@ get ModalName(){
   createNote(){
     createNoteRecord({title:this.noteRecord.Name, description:this.noteRecord.Note_Description__c}).then(()=>{
       this.showModal = false;
+      this.selectedRecordId = null
       this.showToastMsg("Note Created Successfully!!", 'success')
+      this.refresh()
     }).catch(error=>{
       console.error("error", error.message.body)
       this.showToastMsg(error.message.body, 'error')
@@ -114,10 +120,16 @@ get ModalName(){
   const {Name, Note_Description__c} = this.noteRecord
   updateNoteRecord({"noteId":noteId, "title":Name, "description":Note_Description__c}).then(()=>{
     this.showModal = false
+    this.selectedRecordId = null
     this.showToastMsg("Note Updated Successfully!!", 'success')
+    this.refresh()
   }).catch(error=>{
     console.error("error in updating", error)
     this.showToastMsg(error.message.body, 'error')
   })
+ }
+
+ refresh(){
+  return refreshApex(this.wiredNoteResult)
  }
 }
