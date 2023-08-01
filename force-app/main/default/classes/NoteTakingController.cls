@@ -1,4 +1,4 @@
-public with sharing class NoteTakingController {
+public without sharing class NoteTakingController {
     @AuraEnabled
     public static Boolean createNoteRecord(String title, string description){
         try{
