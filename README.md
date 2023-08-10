@@ -1,4 +1,4 @@
-# Note Taking App (Bloco de Notas) - LWC
+# Note Taking App (Bloco de Notas) - LWC - FrontEnd
 
 :heavy_check_mark: Note Taking App
 
