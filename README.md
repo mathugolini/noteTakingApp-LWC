@@ -1,3 +1,5 @@
+# Note Taking App (Bloco de Notas) - LWC
+
 :heavy_check_mark: Note Taking App
 
 Projeto FrontEnd Bloco de Notas - Adição de notas com funções de create, update, select e delete
